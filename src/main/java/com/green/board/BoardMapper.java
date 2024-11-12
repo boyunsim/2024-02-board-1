@@ -10,15 +10,17 @@ package com.green.board;
 
    insert, update, delete의 리턴타입은 int하면 됨.
  */
-import com.green.board.model.BoardInsReq;
-import com.green.board.model.BoardSelOneRes;
-import com.green.board.model.BoardSelRes;
+import com.green.board.model.*;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
+// mybatis에서 제공하는 annotation: dao만들 때 사용하는 인터페이스라는 뜻 >> 인터페이스와 같은 이름의 xml파일이 무조건 있어야한다!
+// <mapper namespace="com.green.board.BoardMapper"> (xml파일에서 이런식으로 연결한다)
 @Mapper
 public interface BoardMapper {
     int insBoard(BoardInsReq p);
     List<BoardSelRes> selBoardList();
     BoardSelOneRes selBoardOne(int p);
+    int updBoard(BoardUpdReq p);
+    int delBoard(BoardDelReq p);
 }

@@ -1,8 +1,6 @@
 package com.green.board;
 
-import com.green.board.model.BoardInsReq;
-import com.green.board.model.BoardSelOneRes;
-import com.green.board.model.BoardSelRes;
+import com.green.board.model.*;
 import jdk.jfr.Registered;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -111,8 +109,10 @@ import java.util.List;
 @RequestMapping( "/board")
 public class BoardController {
     private final BoardService service;
+    // DI 받기위한 멤버필드 설정이지 이것 때문에 객체화가 되는것은 아니다 >> 객체화는 빈등록을 통해 되는 것
 
-    //@RequiredArgsConstructor 애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
+    //@RequiredArgsConstructor final이 붙은 멤버필드가 존재하는곳에
+    //애노테이션을 붙이면 아래 생성자가 자동으로 만들어진다.
 //    public BoardController(BoardService boardService) {
 //        this.boardService = boardService;
 //    }
@@ -136,5 +136,20 @@ public class BoardController {
     @GetMapping("{boardId}")
     public BoardSelOneRes selBoardOne(@PathVariable int boardId) {
         return service.selBoardOne(boardId);
+    }
+
+    @PutMapping
+    public int updBoard(@RequestBody /* body에 담아서 받음 */ BoardUpdReq p) {
+        System.out.println(p);
+        return service.updBoard(p);
+    }
+
+    /*
+        @ModelAttribute: Formdata or Query String 데이터를 받을 수 있다.
+     */
+    @DeleteMapping
+    public int delBoard(@ModelAttribute BoardDelReq p) {
+        System.out.println(p);
+        return service.delBoard(p);
     }
 }

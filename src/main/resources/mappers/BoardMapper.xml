@@ -19,7 +19,7 @@
     </insert>
 -->
 <mapper namespace="com.green.board.BoardMapper">
-    <insert id = "insBoard">
+    <insert id = "insBoard"> <!-- 인터페이스의 method명과 같은 id 명으로 연결이 된다!!-->
         INSERT INTO board
            SET title = #{title}
              , contents = #{contents}
@@ -37,4 +37,26 @@
         FROM board
         WHERE board_id = #{board_id}
     </select>
+
+    <update id = "updBoard">
+        UPDATE board
+        <set>
+            <if test = " title != null and title != '' ">
+                title = #{title}
+            </if>
+            <if test = " contents != null and contents != '' ">
+                , contents = #{contents}
+            </if>
+            <if test = " writer != null and writer != '' ">
+                , writer = #{writer}
+            </if>
+        </set>
+         WHERE board_id = #{boardId} <!-- #{}안의 내용은 멤버필드명을 작성해야한다. -->
+    </update>
+
+    <delete id = "delBoard">
+        DELETE FROM board
+         WHERE writer = #{writer}
+           AND board_id = #{boardId}
+    </delete>
 </mapper>
