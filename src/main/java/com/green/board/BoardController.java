@@ -134,8 +134,8 @@ public class BoardController {
     }
 
     @GetMapping("{boardId}")
-    public BoardSelOneRes selBoardOne(@PathVariable int boardId) {
-        return service.selBoardOne(boardId);
+    public BoardSelOneRes selBoardOne(@PathVariable("boardId") int p) {
+        return service.selBoardOne(p);
     }
 
     @PutMapping
